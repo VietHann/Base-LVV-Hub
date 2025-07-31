@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LVV-Hub - AI Developer & Tech Enthusiast</title>
+    <meta name="description"
+        content="Personal blog of LVV-Hub featuring AI projects, tech insights, and development journey">
+    <meta name="keywords" content="AI, Machine Learning, Web Development, Tech Blog, LVV-Hub">
+
+    <meta property="og:title" content="LVV-Hub - AI Developer & Tech Enthusiast">
+    <meta property="og:description" content="Personal blog featuring AI projects and tech insights">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lvv-hub.com">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LVV-Hub - AI Developer & Tech Enthusiast">
+    <meta name="twitter:description" content="Personal blog featuring AI projects and tech insights">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "LVV-Hub",
+        "url": "https://lvv-hub.com",
+        "jobTitle": "AI Developer",
+        "description": "AI Developer and Tech Enthusiast specializing in Machine Learning and Web Development"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #00BFFF;
+            --primary-purple: #8A2BE2;
+            --accent-gold: #FFD700;
+            --gradient-primary: linear-gradient(135deg, #00BFFF, #8A2BE2);
+            --gradient-gold: linear-gradient(135deg, #FFD700, #FF6B35);
+            --dark-bg: #0a0a0f;
+            --dark-surface: #1a1a2e;
+            --text-light: #ffffff;
+            --text-muted: #b8b8d1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(10, 10, 15, 0.98);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 5px rgba(0, 191, 255, 0.5));
+            }
+
+            to {
+                filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.8));
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-blue);
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.8);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            color: var(--text-light);
+            outline: none;
+            transition: all 0.3s ease;
+            width: 200px;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .dark-mode-toggle:hover {
+            color: var(--accent-gold);
+            transform: rotate(180deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(0, 191, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from {
+                filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.5));
+            }
+
+            to {
+                filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.8));
+            }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgb(158, 135, 180);
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        .avatar:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 0 50px rgba(0, 191, 255, 0.8);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--gradient-gold);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-item:hover {
+            background: rgba(0, 191, 255, 0.1);
+            border-color: var(--primary-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.2);
+        }
+
+        .skill-item i {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 191, 255, 0.2);
+            border-color: var(--primary-blue);
+        }
+
+        .blog-card-image {
+            height: 200px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .blog-card:hover .blog-card-image::before {
+            left: 100%;
+        }
+
+        .blog-card-content {
+            padding: 1.5rem;
+        }
+
+        .blog-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .blog-card p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(138, 43, 226, 0.2);
+            border-color: var(--primary-purple);
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: rgba(0, 191, 255, 0.2);
+            color: var(--primary-blue);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: var(--text-light);
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-blue);
+            text-shadow: 0 0 15px rgba(0, 191, 255, 0.8);
+            transform: translateY(-3px);
+        }
+
+        .newsletter {
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter input {
+            flex: 1;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            color: var(--text-light);
+            outline: none;
+        }
+
+        .newsletter button {
+            background: var(--gradient-gold);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 15, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .search-bar {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+
+            .blog-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter {
+                flex-direction: column;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 191, 255, 0.3);
+            border-top: 3px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+    <div id="particles-js"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">LVV-Hub</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div style="display: flex; align-items: center;">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search..." id="searchInput">
+                </div>
+                <button class="dark-mode-toggle" id="darkModeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="avatar">
+                <img src="https://cdn.pixabay.com/photo/2024/03/14/18/06/cat-8633535_640.png" alt="Ảnh con mèo"
+                    style="width: 100%; height: auto; border-radius: 50%;">
+            </div>
+
+            <h1>Welcome to Viet space</h1>
+            <p>A student majoring in Information Technology</p>
+            <p>Specializing in Machine Learning, Web Development, and AI Innovation</p>
+            <a href="#about" class="cta-button">Discover My Journey</a>
+        </div>
+    </section>
+
+    <section class="section fade-in" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Xin chào! Tôi là Việt, một sinh viên ngành CNTT, đam mê công nghệ và luôn khao khát khám phá những
+                    điều mới
+                    mẻ trong thế giới AI và Machine Learning.</p>
+                <p>
+                    &nbsp;
+                </p>
+                <p>Tôi tin rằng công nghệ có thể thay đổi thế giới, và tôi muốn đóng góp một phần nhỏ vào sự thay đổi đó
+                    thông qua các dự án và chia sẻ kiến thức của mình.</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fas fa-code"></i>
+                    <div>HTML5 / CSS3 / JavaScript</div>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-react"></i>
+                    <div>React.js</div>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fas fa-server"></i>
+                    <div>Node.js / FastAPI</div>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <div>Python / Java / Bash</div>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fas fa-brain"></i>
+                    <div>AI / ML / LLM</div>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-microchip"></i>
+                    <div>PyTorch / TensorFlow</div>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <div>MLOps / Deployment</div>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fas fa-database"></i>
+                    <div>SQL / NoSQL / Git</div>
+                </div>
+
+                <div class="skill-item">
+                    <i class="fab fa-linux"></i>
+                    <div>Linux & Shell</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section fade-in" id="blog">
+        <h2 class="section-title">Latest Blog Posts</h2>
+        <div class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> 15/12/2024</span>
+                        <span><i class="fas fa-clock"></i> 5 min read</span>
+                    </div>
+                    <h3>Khám Phá Thế Giới AI: Từ Cơ Bản Đến Nâng Cao</h3>
+                    <p>Hướng dẫn chi tiết về Machine Learning và Deep Learning cho người mới bắt đầu. Tìm hiểu các khái
+                        niệm cơ bản và ứng dụng thực tế...</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> 12/12/2024</span>
+                        <span><i class="fas fa-clock"></i> 8 min read</span>
+                    </div>
+                    <h3>Xây Dựng Website Hiện Đại với HTML5 & CSS3</h3>
+                    <p>Hướng dẫn tạo website responsive với các hiệu ứng đẹp mắt và tối ưu hiệu suất. Từ thiết kế đến
+                        triển khai...</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar"></i> 10/12/2024</span>
+                        <span><i class="fas fa-clock"></i> 6 min read</span>
+                    </div>
+                    <h3>Tương Lai của AI trong Phát Triển Web</h3>
+                    <p>Khám phá cách AI đang thay đổi ngành phát triển web và những công cụ mới nhất giúp tăng năng
+                        suất...</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section fade-in" id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <i class="fas fa-robot project-icon"></i>
+                <h3>AI Chatbot Assistant</h3>
+                <p>Chatbot thông minh sử dụng NLP để hỗ trợ khách hàng 24/7, hiểu câu hỏi và phản hồi chính xác theo ngữ
+                    cảnh.</p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">NLP</span>
+                    <span class="tech-tag">Flask</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-chart-line project-icon"></i>
+                <h3>Data Analytics</h3>
+                <p>Dashboard tương tác cho phép phân tích dữ liệu lớn và trực quan hóa thông tin qua biểu đồ động, thời
+                    gian thực.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">D3.js</span>
+
+                    <span class="tech-tag">API</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-image project-icon"></i>
+                <h3>AI Image Generator</h3>
+                <p>Tạo hình ảnh từ mô tả văn bản bằng AI, áp dụng Stable Diffusion để tạo ảnh nghệ thuật theo nội dung.
+                </p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">Stable Diffusion</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">Vue.js</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-user-shield project-icon"></i>
+                <h3>Face Mask Detection</h3>
+                <p>Nhận diện người có/không đeo khẩu trang từ video giám sát thời gian thực, ứng dụng trong môi trường.
+                </p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">CNN</span>
+                    <span class="tech-tag">YOLOv5</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-file-alt project-icon"></i>
+                <h3>AI Exam Grader</h3>
+                <p>Chấm điểm bài luận bằng LLM, đánh giá ngữ pháp, nội dung và lập luận logic. Hỗ trợ nhiều tiêu chí
+                    linh hoạt.</p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">LLM</span>
+                    <span class="tech-tag">Qwen / GPT</span>
+                    <span class="tech-tag">Streamlit</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-smile project-icon"></i>
+                <h3>FER</h3>
+                <p>Phân tích khuôn mặt người dùng để xác định cảm xúc như vui, buồn,... bằng mô hình CNN chính xác cao.
+                </p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">Keras</span>
+                    <span class="tech-tag">CNN</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-search project-icon"></i>
+                <h3>AI Text Detector</h3>
+                <p>Phân biệt văn bản do AI hay con người viết, sử dụng mô hình Transformer và embedding để nhận diện
+                    chính xác.</p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">Transformers</span>
+                    <span class="tech-tag">LLM</span>
+                    <span class="tech-tag">Streamlit</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-align-left project-icon"></i>
+                <h3>Text Summarizer</h3>
+                <p>Rút gọn văn bản dài bằng mô hình BERT/GPT, hỗ trợ tiếng Anh và tiếng Việt, phù hợp học thuật và báo
+                    cáo.</p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">Transformers</span>
+                    <span class="tech-tag">BERT</span>
+                    <span class="tech-tag">Flask</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-user-graduate project-icon"></i>
+                <h3>AI Support Learning</h3>
+                <p>Trợ lý học tập AI cá nhân hóa, theo dõi tiến độ học, đề xuất tài liệu và tự động kiểm tra kiến thức
+                    người dùng.</p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">Recommendation</span>
+                    <span class="tech-tag">LLM</span>
+                    <span class="tech-tag">Streamlit</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-microphone project-icon"></i>
+                <h3>Speech-to-Text System</h3>
+                <p>Hệ thống chuyển giọng nói tiếng Việt thành văn bản, hỗ trợ chia đoạn, chuẩn hóa chính tả và hậu xử lý
+                    thông minh.</p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">PyTorch</span>
+                    <span class="tech-tag">Chunkformer</span>
+                    <span class="tech-tag">FastAPI</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-shield-alt project-icon"></i>
+                <h3>DDoS Detection</h3>
+                <p>Phát hiện và ngăn chặn tấn công DDoS qua phân tích lưu lượng mạng, sử dụng mô hình ML.</p>
+                <div class="tech-stack">
+
+                    <span class="tech-tag">Scikit-learn</span>
+                    <span class="tech-tag">Random Forest</span>
+                    <span class="tech-tag">Packet Analyzer</span>
+                </div>
+                <a href="#" class="cta-button">View Demo</a>
+            </div>
+
+            <div class="project-card">
+                <i class="fas fa-ellipsis-h project-icon"></i>
+                <h3>And More Coming...</h3>
+                <p>Portfolio luôn được cập nhật thêm: từ AI đa modal, phân tích hành vi người dùng đến xử lý dữ liệu đa
+                    chiều.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">LLM</span>
+                    <span class="tech-tag">Computer Vision</span>
+                    <span class="tech-tag">NLP</span>
+                    <span class="tech-tag">MLOps</span>
+                </div>
+                <a href="#projects" class="cta-button">Follow Updates</a>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="section fade-in" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">Tên của bạn</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Chủ đề</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Tin nhắn</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">
+                <span>Gửi tin nhắn</span>
+            </button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://github.com/VietHann" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <!-- <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a> -->
+        </div>
+
+        <div class="newsletter">
+            <input type="email" placeholder="Subscribe to newsletter..." id="newsletterEmail">
+            <button type="button" id="newsletterBtn">Subscribe</button>
+        </div>
+
+        <p>&copy; 2025 LVV-Hub</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // Particles.js configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00BFFF' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00BFFF',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+
+                // Update active link
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                // Close mobile menu
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // Simulate form submission
+            const submitBtn = e.target.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Đã gửi!';
+                submitBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+
+                // Show success message
+                alert('Cảm ơn bạn đã liên hệ! Tôi sẽ phản hồi sớm nhất có thể.');
+
+                // Reset form
+                e.target.reset();
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '';
+                }, 3000);
+            }, 2000);
+        });
+
+        // Newsletter subscription
+        document.getElementById('newsletterBtn').addEventListener('click', () => {
+            const email = document.getElementById('newsletterEmail').value;
+
+            if (email && email.includes('@')) {
+                // Create confetti effect
+                createConfetti();
+
+                alert('Cảm ơn bạn đã đăng ký newsletter!');
+                document.getElementById('newsletterEmail').value = '';
+            } else {
+                alert('Vui lòng nhập email hợp lệ!');
+            }
+        });
+
+        // Confetti effect
+        function createConfetti() {
+            const colors = ['#FFD700', '#00BFFF', '#8A2BE2', '#FF6B35'];
+            const confettiCount = 50;
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.zIndex = '10000';
+                confetti.style.borderRadius = '50%';
+                confetti.style.pointerEvents = 'none';
+
+                document.body.appendChild(confetti);
+
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 2000 + 1000,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                });
+
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+
+        // Dark mode toggle (placeholder - already in dark mode)
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            // This is a placeholder since we're already in dark mode
+            // You could implement a light mode here if needed
+            alert('Dark mode is already active! 🌙');
+        });
+
+        // Search functionality (placeholder)
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = e.target.value.toLowerCase();
+                if (query) {
+                    alert(`Searching for: "${query}"\nThis is a demo search function.`);
+                    e.target.value = '';
+                }
+            }
+        });
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.cta-button, .submit-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+            
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'967d1bfa250509f0',t:'MTc1Mzk2NTA1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
